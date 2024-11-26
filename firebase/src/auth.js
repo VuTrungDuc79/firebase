@@ -9,7 +9,8 @@ import {
 // SIGN UP
 // const handleSignUpWithEmailAndPassword = (signupForm) => {
 const signupForm = document.querySelector("#signup-form");
-signupForm && signupForm.addEventListener("submit", async (e) => {
+signupForm &&
+  signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = signupForm.email.value;
     const password = signupForm.password.value;
@@ -36,7 +37,8 @@ signupForm && signupForm.addEventListener("submit", async (e) => {
 // SIGN IN
 // const handleSignUpWithEmailAndPassword = (signupForm) => {
 const signinForm = document.querySelector("#signin-form");
-signinForm && signinForm.addEventListener("submit", async (e) => {
+signinForm &&
+  signinForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = signinForm.email.value;
     const password = signinForm.password.value;
@@ -50,7 +52,7 @@ signinForm && signinForm.addEventListener("submit", async (e) => {
         console.log(error);
       }
       alert("Đăng nhập thành công");
-      window.location.replace("../index.html");
+      window.location.replace("../crud.html");
     } else {
       console.log("Đăng nhập thất bại");
       alert("Sai thông tin, nhập lại");

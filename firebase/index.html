@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+    <style>
+      form {
+        border: 5px solid #cecece;
+        padding: 24px;
+        margin: 24px;
+      }
+      label {
+        display: inline-block;
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Import/Export => depend => type="module" -->
+    <a href="./auth/sign-up.html">Đăng Ký</a>
+    <a href="./auth/sign-in.html">Đăng Nhập</a>
+    <!-- Form Add -->
+    <form action="" class="add">
+      <div>
+        <label for="">Name</label>
+        <input type="text" name="name" id="" required />
+      </div>
+      <div>
+        <label for="">Title</label>
+        <input type="text" name="title" id="" required />
+      </div>
+      <div>
+        <label for="">Description</label>
+        <input type="text" name="des" id="" required />
+      </div>
+      <button type="submit">Add New Post</button>
+    </form>
+    <!-- Form Add -->
+    <!-- Form Update -->
+    <form action="" class="update">
+      <div>
+        <label for="">ID</label>
+        <input type="text" name="id" id="" />
+      </div>
+      <div>
+        <label for="">Name</label>
+        <input type="text" name="name" id="" required />
+      </div>
+      <div>
+        <label for="">Title</label>
+        <input type="text" name="title" id="" required />
+      </div>
+      <div>
+        <label for="">Description</label>
+        <input type="text" name="des" id="" required />
+      </div>
+      <button type="submit">Update Post Exist</button>
+    </form>
+    <!-- Form Update -->
+    <!-- Form Delete -->
+    <form action="" class="delete">
+      <div>
+        <label for="">ID</label>
+        <input type="text" name="id" id="" />
+      </div>
+      <button type="submit">Delete Post</button>
+    </form>
+    <!-- Form Update -->
+    <!-- Fetching single document -->
+    <form action="" class="search">
+      <div>
+        <label for="">Search</label>
+        <input type="search" name="search" id="search" />
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <script type="module" src="./src/script.js"></script>
+  </body>
+</html>

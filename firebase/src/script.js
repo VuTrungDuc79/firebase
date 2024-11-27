@@ -1,6 +1,7 @@
 // import {var, func,...} from "./path|link"
 // Init service firebase
 import { app, auth, db } from "./firebase-config.js";
+import { onAuthStateChanged, signOut } from "./firebase-config.js";
 import {
   collection,
   doc,
@@ -37,11 +38,11 @@ getDocs(colRef)
 async function fetchPosts() {
   try {
     const snapshot = await getDocs(colRef);
-    let posts = [];
+    let books = [];
     snapshot.docs.forEach((doc) => {
-      posts.push({ ...doc.data(), id: doc.id });
+      books.push({ ...doc.data(), id: doc.id });
     });
-    console.log(posts);
+    console.log(books);
   } catch (error) {
     console.log(error);
   }
@@ -88,7 +89,7 @@ const updatePost = document.querySelector(".update");
 updatePost &&
   updatePost.addEventListener("submit", (e) => {
     e.preventDefault();
-    let docRef = doc(db, "posts", deletePost.id.value);
+    let docRef = doc(db, "books", deletePost.id.value);
     updateDoc(docRef, {
       name: updatePost.name.value,
       title: updatePost.title.value,
@@ -106,7 +107,7 @@ updatePost &&
 updatePost &&
   updatePost.addEventListener("submit", async (e) => {
     e.preventDefault();
-    let docRef = doc(db, "posts", updatePost.id.value);
+    let docRef = doc(db, "books", updatePost.id.value);
     try {
       await updateDoc(docRef, {
         name: updatePost.name.value,
@@ -125,7 +126,7 @@ const deletePost = document.querySelector(".delete");
 deletePost &&
   deletePost.addEventListener("submit", (e) => {
     e.preventDefault();
-    let docRef = doc(db, "posts", deletePost.id.value);
+    let docRef = doc(db, "books", deletePost.id.value);
     deleteDoc(docRef)
       .then(() => {
         updatePost.reset();
@@ -139,7 +140,7 @@ deletePost &&
   deletePost.addEventListener("submit", async (e) => {
     e.preventDefault();
     try {
-      let docRef = doc(db, "posts", deletePost.id.value);
+      let docRef = doc(db, "books", deletePost.id.value);
       await deleteDoc(docRef);
       updatePost.reset();
     } catch (error) {
@@ -149,11 +150,32 @@ deletePost &&
 
 ////////////////////////////////////////////
 const searchItem = document.querySelector(".search");
-const docSearch = doc(db, "posts", searchItem.search.value);
-getDoc(docSearch)
-  .then((doc) => {
-    console.log(doc.data(), doc.id);
-  })
-  .catch((error) => {
-    console.log(error);
+
+searchItem &&
+  searchItem.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Lấy giá trị tìm kiếm từ ô input
+    const searchTerm = searchItem.search.value.trim();
+
+    if (searchTerm) {
+      // Tạo một truy vấn Firestore để tìm kiếm tài liệu có trường `name` hoặc `title` chứa từ khóa tìm kiếm
+      const q = query(collection(db, "books"), where("name", "==", searchTerm));
+
+      try {
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          console.log("Không tìm thấy kết quả.");
+        } else {
+          querySnapshot.forEach((doc) => {
+            console.log(doc.id, " => ", doc.data());
+          });
+        }
+      } catch (error) {
+        console.log("Lỗi khi tìm kiếm:", error);
+      }
+    } else {
+      console.log("Vui lòng nhập từ khóa tìm kiếm.");
+    }
   });

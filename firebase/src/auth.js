@@ -59,3 +59,48 @@ signinForm &&
     }
   });
 // };
+signinForm &&
+  signinForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = signinForm.email.value;
+    const password = signinForm.password.value;
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      console.log("Đăng nhập thành công:", user); // Log trạng thái đăng nhập
+      alert("Đăng nhập thành công");
+      window.location.replace("../crud.html");
+    } catch (error) {
+      console.error("Lỗi khi đăng nhập:", error); // Log lỗi đăng nhập
+      alert("Sai thông tin, vui lòng thử lại");
+    }
+  });
+logoutButton &&
+  logoutButton.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+      console.log("Đăng xuất thành công");
+      alert("Bạn đã đăng xuất!");
+      window.location.reload(); // Tải lại trang
+    } catch (error) {
+      console.error("Lỗi khi đăng xuất:", error);
+    }
+  });
+
+signinForm &&
+  signinForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = signinForm.email.value;
+    const password = signinForm.password.value;
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+
+      console.log("Đăng nhập thành công:", user);
+      alert("Đăng nhập thành công");
+      window.location.replace("../crud.html"); // Điều hướng về trang CRUD
+    } catch (error) {
+      console.error("Lỗi khi đăng nhập:", error);
+      alert("Sai thông tin, vui lòng thử lại");
+    }
+  });
